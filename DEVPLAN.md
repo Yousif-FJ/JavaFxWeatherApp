@@ -6,10 +6,10 @@ In the main container, we have current weather in the top, then a horizontal con
 We will use the functional approach to exception handling (capturing exception in the spot and returning a result type)
 
 Code Style:
-function have camelCase
-classes have PascalCase
-local variable have camelCase
-folders are lowercase
+- function have camelCase
+- classes have PascalCase
+- local variable have camelCase
+- folders are lowercase
 
 
 Design?
