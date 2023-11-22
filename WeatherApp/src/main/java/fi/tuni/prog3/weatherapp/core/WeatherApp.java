@@ -1,4 +1,4 @@
-package fi.tuni.prog3.weatherapp;
+package fi.tuni.prog3.weatherapp.core;
 
 import javafx.application.Application;
 import javafx.application.Platform;
