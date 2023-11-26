@@ -1,5 +1,8 @@
 package fi.tuni.prog3.weatherapp.core;
 
+import fi.tuni.prog3.weatherapp.api.UnitType;
+import fi.tuni.prog3.weatherapp.api.WeatherApi;
+import fi.tuni.prog3.weatherapp.api.iAPI;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,6 +42,11 @@ public class WeatherApp extends Application {
         stage.setScene(scene);
         stage.setTitle("WeatherApp");
         stage.show();
+
+        //This is just a test for getting the weather in Tampere
+        iAPI apiService = new WeatherApi(UnitType.Metric);
+        var result = apiService.getCurrentWeather(61.4991, 23.7871);
+
     }
 
     public static void main(String[] args) {
@@ -61,6 +69,8 @@ public class WeatherApp extends Application {
         leftHBox.setPrefHeight(330);
         leftHBox.setStyle("-fx-background-color: #8fc6fd;");
         
+
+
         leftHBox.getChildren().add(new Label("Top Panel"));
         
         return leftHBox;
