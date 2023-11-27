@@ -37,7 +37,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>fi.tuni.prog3.weatherapp.WeatherApp</mainClass>
+                    <mainClass>fi.tuni.prog3.weatherapp.core.WeatherApp</mainClass>
                 </configuration>
                 <executions>
                     <execution>
