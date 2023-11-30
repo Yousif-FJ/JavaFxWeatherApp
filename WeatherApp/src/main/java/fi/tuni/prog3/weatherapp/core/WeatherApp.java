@@ -43,10 +43,26 @@ public class WeatherApp extends Application {
         stage.setTitle("WeatherApp");
         stage.show();
 
-        //This is just a test for getting the weather in Tampere
-        iAPI apiService = new WeatherApi(UnitType.Metric);
-        var result = apiService.getCurrentWeather(61.4991, 23.7871);
 
+        //This is just a test for getting the weather in Tampere City
+        TestWeatherApi();
+    }
+
+    private void TestWeatherApi() {
+        iAPI apiService = new WeatherApi(UnitType.Metric);
+        var resultLoc = apiService.lookUpLocation("Tampere");
+        if (resultLoc.isSuccess() == false) {
+            return;
+        }
+        // simulate the
+        var lat = resultLoc.getValue().get(0).lat;
+        var lon = resultLoc.getValue().get(0).lon;
+
+        var resultCurrentWeather = apiService.getCurrentWeather(lat, lon);
+        if (resultCurrentWeather.isSuccess() == false) {
+            return;
+        }
+        System.out.println(resultCurrentWeather.getValue());
     }
 
     public static void main(String[] args) {

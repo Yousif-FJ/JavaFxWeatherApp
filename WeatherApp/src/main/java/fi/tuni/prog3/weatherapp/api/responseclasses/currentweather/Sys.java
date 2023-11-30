@@ -10,4 +10,9 @@ public class Sys {
         this.sunrise = sunrise;
         this.sunset = sunset;
     }
+
+    @Override
+    public String toString() {
+        return "Sys [country=" + country + ", sunrise=" + sunrise + ", sunset=" + sunset + "]";
+    }
 }

@@ -4,7 +4,10 @@
  */
 package fi.tuni.prog3.weatherapp.api;
 
+import java.util.ArrayList;
+
 import fi.tuni.prog3.weatherapp.api.responseclasses.currentweather.CurrentWeatherResponse;
+import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 /**
  * Interface for extracting data from the OpenWeatherMap API.
@@ -14,9 +17,9 @@ public interface iAPI {
     /**
      * Returns coordinates for a location.
      * @param loc Name of the location for which coordinates should be fetched.
-     * @return String.
+     * @return a list of search results.
      */
-    public Result<String> lookUpLocation(String loc);
+    public Result<ArrayList<LocationItemResponse>> lookUpLocation(String loc);
     
     /**
      * Returns the current weather for the given coordinates.

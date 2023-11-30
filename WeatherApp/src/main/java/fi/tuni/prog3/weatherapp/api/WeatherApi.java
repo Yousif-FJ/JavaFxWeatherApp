@@ -4,15 +4,19 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+import java.util.ArrayList;
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fi.tuni.prog3.weatherapp.api.responseclasses.currentweather.CurrentWeatherResponse;
+import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 public class WeatherApi implements iAPI {
     private static final String API_KEY = "2227240fcd84ab7f0f7f86e82b0aabe0";
     private final HttpClient httpClient = HttpClient.newHttpClient();
-    private final GsonBuilder gsonBuilder = new GsonBuilder(); 
+    private final Gson gson = new GsonBuilder().create();; 
     private final UnitType unitType;
 
     public WeatherApi(UnitType unitType){
@@ -20,16 +24,23 @@ public class WeatherApi implements iAPI {
     }
 
     @Override
-    public Result<String> lookUpLocation(String loc) {
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + loc + "&appid=" + API_KEY
-                    + "&units=" + unitType.value;
+    public Result<ArrayList<LocationItemResponse>> lookUpLocation(String loc) {
+        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + loc + "&appid=" + 
+            API_KEY + "&limit=8";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .build();
+
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            var resultText = response.body();
 
-            return Result.success(response.body());
+            Type listType = new TypeToken<ArrayList<LocationItemResponse>>(){}.getType();
+
+            ArrayList<LocationItemResponse> result = gson.fromJson(resultText, listType) ;
+        
+            return Result.success(result);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error("Failed to get data");
@@ -46,7 +57,6 @@ public class WeatherApi implements iAPI {
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            var gson = gsonBuilder.create();
             var resultText = response.body();
             var result = gson.fromJson(resultText, CurrentWeatherResponse.class);
 

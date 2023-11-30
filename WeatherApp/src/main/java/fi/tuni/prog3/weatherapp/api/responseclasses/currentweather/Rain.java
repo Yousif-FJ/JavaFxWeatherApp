@@ -9,4 +9,9 @@ public class Rain {
     public Rain(float h1) {
         this.h1 = h1;
     }
+
+    @Override
+    public String toString() {
+        return "Rain [h1=" + h1 + "]";
+    }
 }

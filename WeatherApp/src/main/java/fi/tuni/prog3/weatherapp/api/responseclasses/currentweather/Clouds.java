@@ -6,4 +6,9 @@ public class Clouds {
     public Clouds(float all) {
         this.all = all;
     }
+
+    @Override
+    public String toString() {
+        return "Clouds [all=" + all + "]";
+    }
 }

@@ -8,4 +8,9 @@ public class Coord {
         this.lon = lon;
         this.lat = lat;
     }
+
+    @Override
+    public String toString() {
+        return "Coord [lon=" + lon + ", lat=" + lat + "]";
+    }
 }

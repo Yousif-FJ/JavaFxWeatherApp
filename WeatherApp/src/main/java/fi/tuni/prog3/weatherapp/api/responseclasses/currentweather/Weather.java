@@ -12,4 +12,9 @@ public class Weather {
         this.description = description;
         this.icon = icon;
     }
+
+    @Override
+    public String toString() {
+        return "Weather [id=" + id + ", main=" + main + ", description=" + description + ", icon=" + icon + "]";
+    }
 }

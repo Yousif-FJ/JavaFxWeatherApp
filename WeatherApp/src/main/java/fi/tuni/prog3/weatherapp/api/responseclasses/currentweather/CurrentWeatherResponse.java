@@ -30,4 +30,11 @@ public class CurrentWeatherResponse {
         this.timezone = timezone;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "CurrentWeatherResponse [coord=" + coord + ", weather=" + weather + ", base=" + base + ", main=" + main
+                + ", visibility=" + visibility + ", wind=" + wind + ", rain=" + rain + ", dt=" + dt + ", sys=" + sys
+                + ", timezone=" + timezone + ", name=" + name + "]";
+    }
 }
