@@ -2,6 +2,9 @@ package fi.tuni.prog3.weatherapp.api.responseclasses.currentweather;
 
 import java.util.List;
 
+import fi.tuni.prog3.weatherapp.api.responseclasses.common.Weather;
+import fi.tuni.prog3.weatherapp.api.responseclasses.common.Wind;
+
 public class CurrentWeatherResponse {
     
     public final Coord coord;

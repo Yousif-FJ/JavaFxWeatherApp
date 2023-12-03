@@ -7,6 +7,7 @@ package fi.tuni.prog3.weatherapp.api;
 import java.util.ArrayList;
 
 import fi.tuni.prog3.weatherapp.api.responseclasses.currentweather.CurrentWeatherResponse;
+import fi.tuni.prog3.weatherapp.api.responseclasses.dailyforecast.DailyForecastResponse;
 import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 /**
@@ -35,5 +36,5 @@ public interface iAPI {
      * @param lon The longitude of the location.
      * @return String.
      */
-    public Result<String> getForecast(double lat, double lon);
+    public Result<DailyForecastResponse> getForecast(double lat, double lon);
 }

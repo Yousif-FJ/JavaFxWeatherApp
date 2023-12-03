@@ -54,7 +54,7 @@ public class WeatherApp extends Application {
         if (resultLoc.isSuccess() == false) {
             return;
         }
-        // simulate the
+
         var lat = resultLoc.getValue().get(0).lat;
         var lon = resultLoc.getValue().get(0).lon;
 
@@ -63,6 +63,12 @@ public class WeatherApp extends Application {
             return;
         }
         System.out.println(resultCurrentWeather.getValue());
+
+        var resultForecastWeather = apiService.getForecast(lat, lon);
+        if (resultForecastWeather.isSuccess() == false) {
+            return;
+        }
+        System.out.println(resultForecastWeather.getValue());
     }
 
     public static void main(String[] args) {

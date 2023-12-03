@@ -11,10 +11,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fi.tuni.prog3.weatherapp.api.responseclasses.currentweather.CurrentWeatherResponse;
+import fi.tuni.prog3.weatherapp.api.responseclasses.dailyforecast.DailyForecastResponse;
 import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 public class WeatherApi implements iAPI {
-    private static final String API_KEY = "2227240fcd84ab7f0f7f86e82b0aabe0";
+    private static final String API_KEY = "147205126d4ea8b447dc8126ac71ed5a";
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final Gson gson = new GsonBuilder().create();; 
     private final UnitType unitType;
@@ -68,16 +69,19 @@ public class WeatherApi implements iAPI {
     }
 
     @Override
-    public Result<String> getForecast(double lat, double lon) {
-        String url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon="
-                    + lon + "&appid=" + API_KEY + "&units=" + unitType.value;
+    public Result<DailyForecastResponse> getForecast(double lat, double lon) {
+        String url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + lat + "&lon="
+                    + lon + "&appid=" + API_KEY + "&units=" + unitType.value + "&lang=en&cnt=5";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .build();
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());            
 
-            return Result.success(response.body());
+            var resultText = response.body();
+            var result = gson.fromJson(resultText, DailyForecastResponse.class);
+
+            return Result.success(result);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error("Failed to get data");
