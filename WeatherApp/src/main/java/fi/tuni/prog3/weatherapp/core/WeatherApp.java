@@ -7,10 +7,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -92,10 +93,22 @@ public class WeatherApp extends Application {
         //Creating a VBox for the left side.
         VBox leftHBox = new VBox();
         leftHBox.setPrefWidth(200);
-        leftHBox.setStyle("-fx-background-color: #8fc6fd;");
+        leftHBox.setStyle("-fx-background-color: #D9D9D9;");
     
+        TextField searchField = new TextField();
+        Button searchButton = new Button("Search");
+        ListView<String> listView = new ListView<>();
 
-        leftHBox.getChildren().add(new Label("Left Panel"));
+        searchButton.setOnAction(event -> {
+            String query = searchField.getText();
+            if (query != null && query.isEmpty() == false) {
+                //TODO: Search for data sent put the result
+                //listView.setItems();
+                return;
+            }});
+
+        HBox searchBox = new HBox(searchField, searchButton);
+        leftHBox.getChildren().addAll(searchBox, listView);
         
         return leftHBox;
     }
