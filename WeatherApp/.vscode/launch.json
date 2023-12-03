@@ -14,7 +14,7 @@
             "type": "java",
             "name": "WeatherApp",
             "request": "launch",
-            "mainClass": "fi.tuni.progthree.weatherapp/fi.tuni.prog3.weatherapp.WeatherApp",
+            "mainClass": "fi.tuni.progthree.weatherapp/fi.tuni.prog3.weatherapp.core.WeatherApp",
             "projectName": "WeatherApp"
         }
     ]

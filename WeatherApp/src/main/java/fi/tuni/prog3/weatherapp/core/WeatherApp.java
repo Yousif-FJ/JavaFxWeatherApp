@@ -22,23 +22,26 @@ import javafx.stage.Stage;
  */
 public class WeatherApp extends Application {
 
+    private CurrentWeatherVM currentWeatherVm;
     @Override
     public void start(Stage stage) {
         
-        //Creating a new BorderPane.
+        currentWeatherVm = new CurrentWeatherVM();
+
         BorderPane root = new BorderPane();
-        root.setPadding(new Insets(10, 10, 10, 10));
         
-        //Adding HBox to the center of the BorderPane.
-        root.setCenter(getCenterVBox());
+        root.setCenter(createContent());
         
-        //Adding button to the BorderPane and aligning it to the right.
-        var quitButton = getQuitButton();
-        BorderPane.setMargin(quitButton, new Insets(10, 10, 0, 10));
-        root.setBottom(quitButton);
-        BorderPane.setAlignment(quitButton, Pos.TOP_RIGHT);
+        var quitButton = createQuitButton();
+        //I created this button to demonstrate binding in JavaFx
+        //Check createMainPanel for more details 
+        var anotherButton = createTestButton();
+        var hBox = new HBox(quitButton, anotherButton);
+        hBox.spacingProperty().set(4);
+        BorderPane.setMargin(hBox, new Insets(5, 10, 5, 10));
+        root.setBottom(hBox);
         
-        Scene scene = new Scene(root, 500, 700);                      
+        Scene scene = new Scene(root, 900, 560);                      
         stage.setScene(scene);
         stage.setTitle("WeatherApp");
         stage.show();
@@ -75,42 +78,55 @@ public class WeatherApp extends Application {
         launch();
     }
     
-    private VBox getCenterVBox() {
+    private HBox createContent() {
         //Creating an HBox.
-        VBox centerHBox = new VBox(10);
+        HBox hBox = new HBox();
         
         //Adding two VBox to the HBox.
-        centerHBox.getChildren().addAll(getTopHBox(), getBottomHBox());
+        hBox.getChildren().addAll(createSidePanel(), createMainPanel());
         
-        return centerHBox;
+        return hBox;
     }
     
-    private HBox getTopHBox() {
+    private VBox createSidePanel() {
         //Creating a VBox for the left side.
-        HBox leftHBox = new HBox();
-        leftHBox.setPrefHeight(330);
+        VBox leftHBox = new VBox();
+        leftHBox.setPrefWidth(200);
         leftHBox.setStyle("-fx-background-color: #8fc6fd;");
-        
+    
 
-
-        leftHBox.getChildren().add(new Label("Top Panel"));
+        leftHBox.getChildren().add(new Label("Left Panel"));
         
         return leftHBox;
     }
     
-    private HBox getBottomHBox() {
+    private VBox createMainPanel() {
         //Creating a VBox for the right side.
-        HBox rightHBox = new HBox();
-        rightHBox.setPrefHeight(330);
+        VBox rightHBox = new VBox();
+        rightHBox.setPrefWidth(700);
         rightHBox.setStyle("-fx-background-color: #b1c2d4;");
         
-        rightHBox.getChildren().add(new Label("Bottom Panel"));
+        //Bind the label value to the viewModel value, 
+        //so that the label automatically changes when we change the property
+        var mainLabel = new Label();
+        mainLabel.textProperty().bind(currentWeatherVm.Test);
+        rightHBox.getChildren().add(mainLabel);
         
         return rightHBox;
     }
-    
-    private Button getQuitButton() {
-        //Creating a button.
+
+    private Button createTestButton() {
+        Button button = new Button("Change label value");
+        
+        //Changing the property value will should change the Label value because a binding was created.
+        button.setOnAction((ActionEvent event) -> {
+            this.currentWeatherVm.Test.set("New Value");
+        });
+        
+        return button;
+    }
+
+    private Button createQuitButton() {
         Button button = new Button("Quit");
         
         //Adding an event to the button to terminate the application.
