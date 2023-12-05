@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -109,11 +108,14 @@ public class WeatherApp extends Application {
         
         ListView<String> listView = new ListView<>();
         listView.itemsProperty().bind(searchViewModel.searchResultsDisplay);
+        //This happens when user selects an item
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 OnSelectedResult();
             }
         });
+        //This happens when the selected item has changed. 
+        //This event triggers with the previous one but additionally if the user changes the search 
         listView.getSelectionModel().selectedIndexProperty()
                                     .addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
