@@ -108,9 +108,20 @@ public class WeatherApp extends Application {
         });
         
         ListView<String> listView = new ListView<>();
-        listView.itemsProperty().bind(searchViewModel.searchResults);
+        listView.itemsProperty().bind(searchViewModel.searchResultsDisplay);
+        listView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                OnSelectedResult();
+            }
+        });
+        listView.getSelectionModel().selectedIndexProperty()
+                                    .addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() != -1) {
+                searchViewModel.selectedResultItem = searchViewModel.searchResultValue.get(newValue.intValue());
+            }
+        });;
 
-        searchButton.setOnAction(OnSearch());
+        searchButton.setOnAction(event -> OnSearch());
 
         HBox searchBox = new HBox(searchField, searchButton);
         leftHBox.getChildren().addAll(searchBox, listView);
@@ -118,23 +129,27 @@ public class WeatherApp extends Application {
         return leftHBox;
     }
 
-    private EventHandler<ActionEvent> OnSearch() {
-        return event -> {
-            String query = searchViewModel.searchValue.getValue();
-            if (query != null && query.isEmpty() == false) {
+    private void OnSelectedResult() {
+        System.out.println(searchViewModel.selectedResultItem.lat);
+        System.out.println(searchViewModel.selectedResultItem.lon);
+    }
 
-                var resultLoc = apiService.lookUpLocation(query);
-                if (resultLoc.isSuccess()) {
+    private void OnSearch() {
+        String query = searchViewModel.searchValue.getValue();
+        if (query != null && query.isEmpty() == false) {
 
-                    var searchResults = resultLoc.getValue().stream()
-                                                .map(x -> x.name + ", " +  x.country)
-                                                .collect(Collectors.toList());
-
-                    var observableListView = FXCollections.observableList(searchResults);
-                    searchViewModel.searchResults.set(observableListView);
-                }
+            var resultLoc = apiService.lookUpLocation(query);
+            if (resultLoc.isSuccess()) {
+                
+                var searchResults = resultLoc.getValue().stream()
+                .map(x -> x.name + ", " + x.country)
+                .collect(Collectors.toList());
+                
+                var observableListView = FXCollections.observableList(searchResults);
+                searchViewModel.searchResultValue = resultLoc.getValue();
+                searchViewModel.searchResultsDisplay.set(observableListView);
             }
-        };
+        }
     }
     
     private VBox createMainPanel() {
