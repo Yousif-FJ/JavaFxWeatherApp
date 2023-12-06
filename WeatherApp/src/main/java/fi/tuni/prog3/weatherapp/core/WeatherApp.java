@@ -21,6 +21,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -45,7 +46,7 @@ public class WeatherApp extends Application {
         BorderPane.setMargin(hBox, new Insets(5, 10, 5, 10));
         root.setBottom(hBox);
         
-        Scene scene = new Scene(root, 900, 560);                      
+        Scene scene = new Scene(root, 900, 582);                      
         stage.setScene(scene);
         stage.setTitle("WeatherApp");
         stage.show();
@@ -82,7 +83,6 @@ public class WeatherApp extends Application {
     }
     
     private HBox createContent() {
-        //Creating an HBox.
         HBox hBox = new HBox();
         
         //Adding two VBox to the HBox.
@@ -92,7 +92,6 @@ public class WeatherApp extends Application {
     }
     
     private VBox createSidePanel() {
-        //Creating a VBox for the left side.
         VBox leftHBox = new VBox();
         leftHBox.setPrefWidth(200);
         leftHBox.setStyle("-fx-background-color: #D9D9D9;");
@@ -134,6 +133,7 @@ public class WeatherApp extends Application {
     private void OnSelectedResult() {
         System.out.println(searchViewModel.selectedResultItem.lat);
         System.out.println(searchViewModel.selectedResultItem.lon);
+        //Set the current temp
     }
 
     private void OnSearch() {
@@ -155,13 +155,22 @@ public class WeatherApp extends Application {
     }
     
     private VBox createMainPanel() {
-        //Creating a VBox for the right side.
         VBox rightHBox = new VBox();
         rightHBox.setPrefWidth(700);
         rightHBox.setStyle("-fx-background-color: #b1c2d4;");
         
-        var mainLabel = new Label("Main panel");
-        rightHBox.getChildren().add(mainLabel);
+        var currentTemperature = new Label("0");
+        currentTemperature.setFont(new Font(24));
+        var currentWeatherBox = new HBox();
+        currentWeatherBox.setPadding(new Insets(10));
+        currentWeatherBox.setPrefHeight(194);
+        currentWeatherBox.getChildren().addAll(currentTemperature);
+
+        var forecastBox = new HBox();
+        currentWeatherBox.setPrefHeight(194);
+
+
+        rightHBox.getChildren().addAll(currentWeatherBox, forecastBox);
         
         return rightHBox;
     }

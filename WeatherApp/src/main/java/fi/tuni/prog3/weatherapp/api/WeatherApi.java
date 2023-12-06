@@ -17,7 +17,7 @@ import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemR
 public class WeatherApi implements iAPI {
     private static final String API_KEY = "147205126d4ea8b447dc8126ac71ed5a";
     private final HttpClient httpClient = HttpClient.newHttpClient();
-    private final Gson gson = new GsonBuilder().create();; 
+    private final Gson gson = new GsonBuilder().create();
     private final UnitType unitType;
 
     public WeatherApi(UnitType unitType){
