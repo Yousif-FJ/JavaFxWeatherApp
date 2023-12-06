@@ -25,16 +25,20 @@ public class MainPanel {
 
 
     public VBox createMainPanel() {
-        VBox rightHBox = new VBox();
-        rightHBox.setPrefWidth(700);
-        rightHBox.setStyle("-fx-background-color: #b1c2d4;");
+        VBox mainPanel = new VBox();
+        mainPanel.setPrefWidth(700);
+        mainPanel.setStyle("-fx-background-color: #b1c2d4;");
+        mainPanel.getChildren().addAll(createCurrentWeatherBox(), createForecastBox());
+        return mainPanel;
+    }
 
+    private HBox createCurrentWeatherBox() {
         var currentTemperature = new Label("0°C");
         currentTemperature.setFont(new Font(24));
 
         String iconPath = "/weathericons/01d@2x.png";
-        Image iconImage = new Image(getClass().getResource(iconPath).toExternalForm());
-        ImageView iconImageView = new ImageView(iconImage);
+        var iconImage = new Image(getClass().getResource(iconPath).toExternalForm());
+        var iconImageView = new ImageView(iconImage);
 
         var currentWeatherBox = new HBox();
         currentWeatherBox.setStyle("-fx-background-color: #ffffff;");
@@ -43,13 +47,13 @@ public class MainPanel {
         currentWeatherBox.getChildren().addAll(currentTemperature, iconImageView);
         currentWeatherBox.setPrefHeight(168);
 
+        return currentWeatherBox;
+    }
+
+    private HBox createForecastBox() {
         var forecastBox = new HBox();
         forecastBox.setStyle("-fx-background-color: #7AEAF1;");
         forecastBox.setPrefHeight(168);
-
-
-        rightHBox.getChildren().addAll(currentWeatherBox, forecastBox);
-
-        return rightHBox;
+        return forecastBox;
     }
 }
