@@ -68,7 +68,6 @@ public class LocationPanel {
     private void OnSelectedResult() {
         System.out.println(globalVm.currentLocationItem.getValue().lat);
         System.out.println(globalVm.currentLocationItem.getValue().lon);
-        //Set the current temp
     }
 
     private void OnSearch() {

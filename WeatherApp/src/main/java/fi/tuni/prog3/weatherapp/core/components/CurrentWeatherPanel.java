@@ -46,6 +46,27 @@ public class CurrentWeatherPanel {
                 );
         currentWeatherBox.setPrefHeight(168);
 
+        globalVm.currentLocationItem.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                updateCurrentWeather();
+            }
+        });
+
         return currentWeatherBox;
+    }
+    
+    public void updateCurrentWeather(){
+        var lat = globalVm.currentLocationItem.getValue().lat;
+        var lon = globalVm.currentLocationItem.getValue().lon;
+        var result = apiService.getCurrentWeather(lat, lon);
+        if (result.isSuccess() == false) {
+            return;
+        }
+        var weather = result.getValue();
+        currentWeatherVm.currentTemperature.setValue(String.valueOf(weather.main.temp));
+        currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
+        currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
+        currentWeatherVm.humidity.setValue(String.valueOf(weather.main.humidity));
+        currentWeatherVm.windSpeed.setValue(String.valueOf(weather.wind.speed));
     }
 }
