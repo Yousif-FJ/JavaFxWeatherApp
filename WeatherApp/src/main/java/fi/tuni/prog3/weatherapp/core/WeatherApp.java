@@ -1,13 +1,10 @@
 package fi.tuni.prog3.weatherapp.core;
 
-import java.util.stream.Collectors;
-
 import fi.tuni.prog3.weatherapp.api.UnitType;
 import fi.tuni.prog3.weatherapp.api.WeatherApi;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVM;
 import fi.tuni.prog3.weatherapp.core.ViewModels.SearchViewModel;
-import javafx.collections.FXCollections;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,9 +12,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,7 +24,8 @@ public class WeatherApp extends Application {
     private final CurrentWeatherVM currentWeatherVm = new CurrentWeatherVM();
     private final SearchViewModel searchViewModel = new SearchViewModel();
     private final iAPI apiService = new WeatherApi(UnitType.Metric);
-
+    private final SidePanel sidePanel = new SidePanel(searchViewModel, apiService);
+    private final MainPanel mainPanel = new MainPanel();
 
     @Override
     public void start(Stage stage) {
@@ -86,94 +81,13 @@ public class WeatherApp extends Application {
         HBox hBox = new HBox();
         
         //Adding two VBox to the HBox.
-        hBox.getChildren().addAll(createSidePanel(), createMainPanel());
+        hBox.getChildren().addAll(sidePanel.createSidePanel(), mainPanel.createMainPanel());
         
         return hBox;
     }
     
-    private VBox createSidePanel() {
-        VBox leftHBox = new VBox();
-        leftHBox.setPrefWidth(200);
-        leftHBox.setStyle("-fx-background-color: #D9D9D9;");
     
-        Button searchButton = new Button("Search");
-        TextField searchField = new TextField();
-        searchField.textProperty().bindBidirectional(searchViewModel.searchValue);
-        searchField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                searchButton.fire();     
-            }
-        });
-        
-        ListView<String> listView = new ListView<>();
-        listView.itemsProperty().bind(searchViewModel.searchResultsDisplay);
-        //This happens when user selects an item
-        listView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                OnSelectedResult();
-            }
-        });
-        //This happens when the selected item has changed. 
-        //This event triggers with the previous one but additionally if the user changes the search 
-        listView.getSelectionModel().selectedIndexProperty()
-                                    .addListener((observable, oldValue, newValue) -> {
-            if (newValue.intValue() != -1) {
-                searchViewModel.selectedResultItem = searchViewModel.searchResultValue.get(newValue.intValue());
-            }
-        });;
 
-        searchButton.setOnAction(event -> OnSearch());
-
-        HBox searchBox = new HBox(searchField, searchButton);
-        leftHBox.getChildren().addAll(searchBox, listView);
-        
-        return leftHBox;
-    }
-
-    private void OnSelectedResult() {
-        System.out.println(searchViewModel.selectedResultItem.lat);
-        System.out.println(searchViewModel.selectedResultItem.lon);
-        //Set the current temp
-    }
-
-    private void OnSearch() {
-        String query = searchViewModel.searchValue.getValue();
-        if (query != null && query.isEmpty() == false) {
-
-            var resultLoc = apiService.lookUpLocation(query);
-            if (resultLoc.isSuccess()) {
-                
-                var searchResults = resultLoc.getValue().stream()
-                .map(x -> x.name + ", " + x.country)
-                .collect(Collectors.toList());
-                
-                var observableListView = FXCollections.observableList(searchResults);
-                searchViewModel.searchResultValue = resultLoc.getValue();
-                searchViewModel.searchResultsDisplay.set(observableListView);
-            }
-        }
-    }
-    
-    private VBox createMainPanel() {
-        VBox rightHBox = new VBox();
-        rightHBox.setPrefWidth(700);
-        rightHBox.setStyle("-fx-background-color: #b1c2d4;");
-        
-        var currentTemperature = new Label("0");
-        currentTemperature.setFont(new Font(24));
-        var currentWeatherBox = new HBox();
-        currentWeatherBox.setPadding(new Insets(10));
-        currentWeatherBox.setPrefHeight(194);
-        currentWeatherBox.getChildren().addAll(currentTemperature);
-
-        var forecastBox = new HBox();
-        currentWeatherBox.setPrefHeight(194);
-
-
-        rightHBox.getChildren().addAll(currentWeatherBox, forecastBox);
-        
-        return rightHBox;
-    }
 
     private Button createQuitButton() {
         Button button = new Button("Quit");
