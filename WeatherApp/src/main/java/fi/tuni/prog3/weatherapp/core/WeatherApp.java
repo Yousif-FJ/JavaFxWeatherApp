@@ -4,6 +4,7 @@ import fi.tuni.prog3.weatherapp.api.UnitType;
 import fi.tuni.prog3.weatherapp.api.WeatherApi;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVM;
+import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
 import fi.tuni.prog3.weatherapp.core.ViewModels.SearchViewModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,9 +17,10 @@ public class WeatherApp extends Application {
 
     private final CurrentWeatherVM currentWeatherVm = new CurrentWeatherVM();
     private final SearchViewModel searchViewModel = new SearchViewModel();
+    private final GlobalVm globalVm = new GlobalVm();
     private final iAPI apiService = new WeatherApi(UnitType.Metric);
-    private final SidePanel sidePanel = new SidePanel(searchViewModel, apiService);
-    private final MainPanel mainPanel = new MainPanel();
+    private final SidePanel sidePanel = new SidePanel(searchViewModel, globalVm, apiService);
+    private final MainPanel mainPanel = new MainPanel(currentWeatherVm, globalVm, apiService);
 
     @Override
     public void start(Stage stage) {

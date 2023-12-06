@@ -14,7 +14,5 @@ public class SearchViewModel {
     public final ObjectProperty<ObservableList<String>> searchResultsDisplay = 
         new SimpleObjectProperty<ObservableList<String>>();
 
-    public LocationItemResponse selectedResultItem;
     public List<LocationItemResponse> searchResultValue;
-
 }

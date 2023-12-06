@@ -2,6 +2,7 @@ package fi.tuni.prog3.weatherapp.core;
 
 import java.util.stream.Collectors;
 import fi.tuni.prog3.weatherapp.api.iAPI;
+import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
 import fi.tuni.prog3.weatherapp.core.ViewModels.SearchViewModel;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
@@ -13,10 +14,12 @@ import javafx.scene.layout.VBox;
 
 public class SidePanel {
     private final SearchViewModel searchViewModel;
+    private final GlobalVm globalVm;
     private final iAPI apiService;
 
-    public SidePanel(SearchViewModel searchViewModel, iAPI apiService) {
+    public SidePanel(SearchViewModel searchViewModel, GlobalVm globalVm, iAPI apiService) {
         this.searchViewModel = searchViewModel;
+        this.globalVm = globalVm;
         this.apiService = apiService;
     }
 
@@ -49,7 +52,8 @@ public class SidePanel {
         listView.getSelectionModel().selectedIndexProperty()
                                     .addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
-                searchViewModel.selectedResultItem = searchViewModel.searchResultValue.get(newValue.intValue());
+                var selectedItem = searchViewModel.searchResultValue.get(newValue.intValue());
+                globalVm.currentLocationItem.setValue(selectedItem);
             }
         });
 
@@ -62,8 +66,8 @@ public class SidePanel {
     }
 
     private void OnSelectedResult() {
-        System.out.println(searchViewModel.selectedResultItem.lat);
-        System.out.println(searchViewModel.selectedResultItem.lon);
+        System.out.println(globalVm.currentLocationItem.getValue().lat);
+        System.out.println(globalVm.currentLocationItem.getValue().lon);
         //Set the current temp
     }
 

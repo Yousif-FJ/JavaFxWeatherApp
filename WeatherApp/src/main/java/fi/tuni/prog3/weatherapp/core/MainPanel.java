@@ -1,5 +1,8 @@
 package fi.tuni.prog3.weatherapp.core;
 
+import fi.tuni.prog3.weatherapp.api.iAPI;
+import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVM;
+import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,8 +12,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class MainPanel {
+    private final CurrentWeatherVM currentWeatherVm;
+    private final GlobalVm globalVm;
+    private final iAPI apiService;
 
-    
+
+    public MainPanel(CurrentWeatherVM currentWeatherVm, GlobalVm globalVm, iAPI apiService) {
+        this.currentWeatherVm = currentWeatherVm;
+        this.apiService = apiService;
+        this.globalVm = globalVm;
+    }
+
+
     public VBox createMainPanel() {
         VBox rightHBox = new VBox();
         rightHBox.setPrefWidth(700);
