@@ -26,6 +26,7 @@ public class SidePanel {
         leftHBox.setStyle("-fx-background-color: #D9D9D9;");
     
         Button searchButton = new Button("Search");
+        searchButton.setPrefWidth(100);
         TextField searchField = new TextField();
         searchField.textProperty().bindBidirectional(searchViewModel.searchValue);
         searchField.setOnKeyPressed(event -> {
@@ -36,6 +37,7 @@ public class SidePanel {
         
         ListView<String> listView = new ListView<>();
         listView.itemsProperty().bind(searchViewModel.searchResultsDisplay);
+        listView.setStyle("-fx-control-inner-background: #D9D9D9;");
         //This happens when user selects an item
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
