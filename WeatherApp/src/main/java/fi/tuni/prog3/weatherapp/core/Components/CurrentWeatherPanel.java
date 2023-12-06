@@ -1,14 +1,13 @@
-package fi.tuni.prog3.weatherapp.core.Components;
+package fi.tuni.prog3.weatherapp.core.components;
 
 import fi.tuni.prog3.weatherapp.api.iAPI;
-import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVm;
-import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
+import fi.tuni.prog3.weatherapp.core.viewmodels.CurrentWeatherVm;
+import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class CurrentWeatherPanel {
@@ -49,6 +48,4 @@ public class CurrentWeatherPanel {
 
         return currentWeatherBox;
     }
-
-
 }

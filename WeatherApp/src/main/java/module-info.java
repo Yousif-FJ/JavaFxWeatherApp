@@ -6,7 +6,7 @@ module fi.tuni.progthree.weatherapp {
     exports fi.tuni.prog3.weatherapp.api.responseclasses.dailyforecast;
     exports fi.tuni.prog3.weatherapp.api.responseclasses.common;
     exports fi.tuni.prog3.weatherapp.api;
-    exports fi.tuni.prog3.weatherapp.core.ViewModels;
+    exports fi.tuni.prog3.weatherapp.core.viewmodels;
     requires com.google.gson;
     requires java.net.http;
 }

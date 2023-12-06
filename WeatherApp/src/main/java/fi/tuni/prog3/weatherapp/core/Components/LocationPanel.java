@@ -1,9 +1,9 @@
-package fi.tuni.prog3.weatherapp.core.Components;
+package fi.tuni.prog3.weatherapp.core.components;
 
 import java.util.stream.Collectors;
 import fi.tuni.prog3.weatherapp.api.iAPI;
-import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
-import fi.tuni.prog3.weatherapp.core.ViewModels.SearchVm;
+import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
+import fi.tuni.prog3.weatherapp.core.viewmodels.SearchVm;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;

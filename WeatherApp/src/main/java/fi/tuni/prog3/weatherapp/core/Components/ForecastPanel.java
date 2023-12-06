@@ -1,4 +1,4 @@
-package fi.tuni.prog3.weatherapp.core.Components;
+package fi.tuni.prog3.weatherapp.core.components;
 
 import javafx.scene.layout.HBox;
 

@@ -1,4 +1,4 @@
-package fi.tuni.prog3.weatherapp.core.ViewModels;
+package fi.tuni.prog3.weatherapp.core.viewmodels;
 
 import java.util.List;
 

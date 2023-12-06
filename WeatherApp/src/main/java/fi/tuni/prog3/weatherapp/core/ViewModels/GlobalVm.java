@@ -1,4 +1,4 @@
-package fi.tuni.prog3.weatherapp.core.ViewModels;
+package fi.tuni.prog3.weatherapp.core.viewmodels;
 
 import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 import javafx.beans.property.ObjectProperty;
