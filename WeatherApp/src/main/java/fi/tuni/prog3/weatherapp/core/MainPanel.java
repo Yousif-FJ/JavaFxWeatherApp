@@ -24,12 +24,16 @@ public class MainPanel {
         ImageView iconImageView = new ImageView(iconImage);
 
         var currentWeatherBox = new HBox();
+        currentWeatherBox.setStyle("-fx-background-color: #ffffff;");
+
         currentWeatherBox.setPadding(new Insets(10));
-        currentWeatherBox.setPrefHeight(194);
         currentWeatherBox.getChildren().addAll(currentTemperature, iconImageView);
+        currentWeatherBox.setPrefHeight(168);
 
         var forecastBox = new HBox();
-        currentWeatherBox.setPrefHeight(194);
+        forecastBox.setStyle("-fx-background-color: #7AEAF1;");
+        forecastBox.setPrefHeight(168);
+
 
         rightHBox.getChildren().addAll(currentWeatherBox, forecastBox);
 

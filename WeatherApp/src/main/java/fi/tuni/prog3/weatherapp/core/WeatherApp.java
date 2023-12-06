@@ -6,16 +6,9 @@ import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVM;
 import fi.tuni.prog3.weatherapp.core.ViewModels.SearchViewModel;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -33,15 +26,8 @@ public class WeatherApp extends Application {
         BorderPane root = new BorderPane();
         
         root.setCenter(createContent());
-        
-        var quitButton = createQuitButton();
-
-        var hBox = new HBox(quitButton);
-        hBox.spacingProperty().set(4);
-        BorderPane.setMargin(hBox, new Insets(5, 10, 5, 10));
-        root.setBottom(hBox);
-        
-        Scene scene = new Scene(root, 900, 582);                      
+                
+        Scene scene = new Scene(root, 900, 504);                      
         stage.setScene(scene);
         stage.setTitle("WeatherApp");
         stage.show();
@@ -84,19 +70,5 @@ public class WeatherApp extends Application {
         hBox.getChildren().addAll(sidePanel.createSidePanel(), mainPanel.createMainPanel());
         
         return hBox;
-    }
-    
-    
-
-
-    private Button createQuitButton() {
-        Button button = new Button("Quit");
-        
-        //Adding an event to the button to terminate the application.
-        button.setOnAction((ActionEvent event) -> {
-            Platform.exit();
-        });
-        
-        return button;
     }
 }
