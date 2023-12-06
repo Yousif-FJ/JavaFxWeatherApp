@@ -27,6 +27,19 @@ public class CurrentWeatherPanel {
 
 
     public HBox create() {
+        var currentWeatherBox = new HBox(
+                tempsBox(),
+                iconBox(),
+                additionalDataBox()
+                );
+        currentWeatherBox.setPrefHeight(168);
+        currentWeatherBox.setStyle("-fx-background-color: #ffffff;");
+        currentWeatherBox.setPadding(new Insets(10));
+
+        return currentWeatherBox;
+    }
+
+    private VBox tempsBox() {
         var temperature = new Label("0 °C");
         temperature.setFont(new Font(48));
         var temperatureAligner = new HBox(temperature);
@@ -34,13 +47,15 @@ public class CurrentWeatherPanel {
         var feelsLike = new Label("Feels like -36 °C");
         feelsLike.setFont(new Font(smallFontSize));
 
-        var tempsBox = new VBox();
-        tempsBox.getChildren().addAll(
+        var tempsBox = new VBox(
                 temperatureAligner,
                 feelsLike
                 );
         tempsBox.setAlignment(Pos.CENTER);
+        return tempsBox;
+    }
 
+    private VBox iconBox() {
         String iconPath = "/weathericons/03d@2x.png";
         var iconImage = new Image(getClass().getResource(iconPath).toExternalForm());
         var iconImageView = new ImageView(iconImage);
@@ -48,7 +63,10 @@ public class CurrentWeatherPanel {
         iconImageView.setFitHeight(150);
         var iconAligner = new VBox(iconImageView);
         iconAligner.setAlignment(Pos.CENTER);
+        return iconAligner;
+    }
 
+    private VBox additionalDataBox() {
         var humidity = new Label("Humidity: 95%");
         humidity.setFont(new Font(smallFontSize));
         var windSpeed = new Label("Wind speed: 4.02 m/s");
@@ -58,26 +76,13 @@ public class CurrentWeatherPanel {
         var sunset = new Label("Sunset: 15:03");
         sunset.setFont(new Font(smallFontSize));
 
-        var additionalDataBox = new VBox();
-        additionalDataBox.getChildren().addAll(
+        var additionalDataBox = new VBox(
                 humidity,
                 windSpeed,
                 sunrise,
                 sunset
                 );
         additionalDataBox.setAlignment(Pos.CENTER_LEFT);
-
-        var currentWeatherBox = new HBox();
-        currentWeatherBox.setStyle("-fx-background-color: #ffffff;");
-
-        currentWeatherBox.setPadding(new Insets(10));
-        currentWeatherBox.getChildren().addAll(
-                tempsBox,
-                iconAligner,
-                additionalDataBox
-                );
-        currentWeatherBox.setPrefHeight(168);
-
-        return currentWeatherBox;
+        return additionalDataBox;
     }
 }
