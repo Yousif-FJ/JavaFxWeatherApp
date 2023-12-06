@@ -33,11 +33,11 @@ public class MainPanel {
     }
 
     private HBox createCurrentWeatherBox() {
-        var currentTemperature = new Label("0 °C");
-        currentTemperature.setFont(new Font(24));
+        var temperature = new Label("0 °C");
+        temperature.setFont(new Font(24));
 
-        var currentHumidity = new Label("Humidity: 95%");
-        var currentWindSpeed = new Label("Wind speed: 4.02 m/s");
+        var humidity = new Label("Humidity: 95%");
+        var windSpeed = new Label("Wind speed: 4.02 m/s");
 
         String iconPath = "/weathericons/01d@2x.png";
         var iconImage = new Image(getClass().getResource(iconPath).toExternalForm());
@@ -48,10 +48,10 @@ public class MainPanel {
 
         currentWeatherBox.setPadding(new Insets(10));
         currentWeatherBox.getChildren().addAll(
-                currentTemperature,
+                temperature,
                 iconImageView,
-                currentHumidity,
-                currentWindSpeed
+                humidity,
+                windSpeed
                 );
         currentWeatherBox.setPrefHeight(168);
 
