@@ -28,8 +28,7 @@ public class CurrentWeatherPanel {
 
     public HBox create() {
         var currentWeatherBox = new HBox(
-                tempsBox(),
-                iconBox(),
+                leftBox(),
                 additionalDataBox()
                 );
         currentWeatherBox.setPrefHeight(168);
@@ -37,6 +36,12 @@ public class CurrentWeatherPanel {
         currentWeatherBox.setPadding(new Insets(10));
 
         return currentWeatherBox;
+    }
+
+    private HBox leftBox() {
+        var leftBox = new HBox(tempsBox(), iconBox());
+        leftBox.setPadding(new Insets(0, 50, 0, 10));
+        return leftBox;
     }
 
     private VBox tempsBox() {
