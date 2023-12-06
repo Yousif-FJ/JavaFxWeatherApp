@@ -3,24 +3,29 @@ package fi.tuni.prog3.weatherapp.core;
 import fi.tuni.prog3.weatherapp.api.UnitType;
 import fi.tuni.prog3.weatherapp.api.WeatherApi;
 import fi.tuni.prog3.weatherapp.api.iAPI;
-import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVM;
+import fi.tuni.prog3.weatherapp.core.Components.CurrentWeatherPanel;
+import fi.tuni.prog3.weatherapp.core.Components.ForecastPanel;
+import fi.tuni.prog3.weatherapp.core.Components.LocationPanel;
+import fi.tuni.prog3.weatherapp.core.ViewModels.CurrentWeatherVm;
 import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
-import fi.tuni.prog3.weatherapp.core.ViewModels.SearchViewModel;
+import fi.tuni.prog3.weatherapp.core.ViewModels.SearchVm;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 public class WeatherApp extends Application {
 
-    private final CurrentWeatherVM currentWeatherVm = new CurrentWeatherVM();
-    private final SearchViewModel searchViewModel = new SearchViewModel();
+    private final CurrentWeatherVm currentWeatherVm = new CurrentWeatherVm();
+    private final SearchVm searchViewModel = new SearchVm();
     private final GlobalVm globalVm = new GlobalVm();
     private final iAPI apiService = new WeatherApi(UnitType.Metric);
-    private final SidePanel sidePanel = new SidePanel(searchViewModel, globalVm, apiService);
-    private final MainPanel mainPanel = new MainPanel(currentWeatherVm, globalVm, apiService);
+    private final LocationPanel sidePanel = new LocationPanel(searchViewModel, globalVm, apiService);
+    private final CurrentWeatherPanel currentWeatherPanel = new CurrentWeatherPanel(currentWeatherVm, globalVm, apiService);
+    private final ForecastPanel forecastPanel = new ForecastPanel();
 
     @Override
     public void start(Stage stage) {
@@ -65,11 +70,19 @@ public class WeatherApp extends Application {
         launch();
     }
     
+    private VBox createMainPanel() {
+        VBox mainPanel = new VBox();
+        mainPanel.setPrefWidth(700);
+        mainPanel.setStyle("-fx-background-color: #b1c2d4;");
+        mainPanel.getChildren().addAll(currentWeatherPanel.create(), forecastPanel.create());
+        return mainPanel;
+    }
+
     private HBox createContent() {
         HBox hBox = new HBox();
         
         //Adding two VBox to the HBox.
-        hBox.getChildren().addAll(sidePanel.createSidePanel(), mainPanel.createMainPanel());
+        hBox.getChildren().addAll(sidePanel.create(), createMainPanel());
         
         return hBox;
     }

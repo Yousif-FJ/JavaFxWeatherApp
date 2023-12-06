@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
 
-public class SearchViewModel {
+public class SearchVm {
     public final SimpleStringProperty searchValue = new SimpleStringProperty("");
     public final ObjectProperty<ObservableList<String>> searchResultsDisplay = 
         new SimpleObjectProperty<ObservableList<String>>();

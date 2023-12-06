@@ -1,9 +1,9 @@
-package fi.tuni.prog3.weatherapp.core;
+package fi.tuni.prog3.weatherapp.core.Components;
 
 import java.util.stream.Collectors;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.ViewModels.GlobalVm;
-import fi.tuni.prog3.weatherapp.core.ViewModels.SearchViewModel;
+import fi.tuni.prog3.weatherapp.core.ViewModels.SearchVm;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -12,18 +12,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class SidePanel {
-    private final SearchViewModel searchViewModel;
+public class LocationPanel {
+    private final SearchVm searchViewModel;
     private final GlobalVm globalVm;
     private final iAPI apiService;
 
-    public SidePanel(SearchViewModel searchViewModel, GlobalVm globalVm, iAPI apiService) {
+    public LocationPanel(SearchVm searchViewModel, GlobalVm globalVm, iAPI apiService) {
         this.searchViewModel = searchViewModel;
         this.globalVm = globalVm;
         this.apiService = apiService;
     }
 
-    public VBox createSidePanel() {
+    public VBox create() {
         VBox leftHBox = new VBox();
         leftHBox.setPrefWidth(200);
         leftHBox.setStyle("-fx-background-color: #D9D9D9;");
