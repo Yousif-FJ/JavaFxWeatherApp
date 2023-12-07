@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 
 import fi.tuni.prog3.weatherapp.api.responseclasses.currentweather.CurrentWeatherResponse;
 import fi.tuni.prog3.weatherapp.api.responseclasses.dailyforecast.DailyForecastResponse;
+import fi.tuni.prog3.weatherapp.api.responseclasses.hourlyforecast.HourlyForecastResponse;
 import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 public class WeatherApi implements iAPI {
@@ -80,6 +81,27 @@ public class WeatherApi implements iAPI {
 
             var resultText = response.body();
             var result = gson.fromJson(resultText, DailyForecastResponse.class);
+
+            return Result.success(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("Failed to get data");
+        }
+    }
+
+    @Override
+    public Result<HourlyForecastResponse> getHourlyForecast(double lat, double lon) {
+        String url = "http://api.openweathermap.org/data/2.5/forecast/hourly?lat=" + lat + "&lon="
+                    + lon + "&appid=" + API_KEY + "&units=" + unitType.value + "&lang=en&cnt=5";
+                    
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());            
+
+            var resultText = response.body();
+            var result = gson.fromJson(resultText, HourlyForecastResponse.class);
 
             return Result.success(result);
         } catch (Exception e) {

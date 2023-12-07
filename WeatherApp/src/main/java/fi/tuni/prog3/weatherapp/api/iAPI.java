@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package fi.tuni.prog3.weatherapp.api;
 
 import java.util.ArrayList;
 
 import fi.tuni.prog3.weatherapp.api.responseclasses.currentweather.CurrentWeatherResponse;
 import fi.tuni.prog3.weatherapp.api.responseclasses.dailyforecast.DailyForecastResponse;
+import fi.tuni.prog3.weatherapp.api.responseclasses.hourlyforecast.HourlyForecastResponse;
 import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 /**
@@ -37,4 +34,6 @@ public interface iAPI {
      * @return String.
      */
     public Result<DailyForecastResponse> getForecast(double lat, double lon);
+
+    public Result<HourlyForecastResponse> getHourlyForecast(double lat, double lon);
 }
