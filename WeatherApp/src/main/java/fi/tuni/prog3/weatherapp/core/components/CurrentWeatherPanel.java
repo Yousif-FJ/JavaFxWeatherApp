@@ -78,6 +78,7 @@ public class CurrentWeatherPanel {
         var temperature = new Label();
         temperature.textProperty().bind(currentWeatherVm.temperature);
         temperature.setFont(new Font(48));
+        temperature.setStyle("-fx-font-weight: bold");
         var temperatureAligner = new HBox(temperature);
         temperatureAligner.setAlignment(Pos.CENTER);
         var feelsLike = new Label();
@@ -85,7 +86,8 @@ public class CurrentWeatherPanel {
         feelsLike.setFont(new Font(smallFontSize));
         var minMaxTemperature = new Label();
         minMaxTemperature.textProperty().bind(currentWeatherVm.minMaxTemperature);
-        minMaxTemperature.setFont(new Font(smallFontSize));
+        minMaxTemperature.setFont(new Font(smallFontSize + 2));
+        minMaxTemperature.setStyle("-fx-font-weight: bold");
 
         var tempsBox = new VBox(
                 temperatureAligner,
