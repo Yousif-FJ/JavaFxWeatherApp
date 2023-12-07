@@ -43,6 +43,21 @@ public class CurrentWeatherPanel {
 
         return currentWeatherBox;
     }
+    
+    public void updateCurrentWeather(){
+        var lat = globalVm.currentLocationItem.getValue().lat;
+        var lon = globalVm.currentLocationItem.getValue().lon;
+        var result = apiService.getCurrentWeather(lat, lon);
+        if (result.isSuccess() == false) {
+            return;
+        }
+        var weather = result.getValue();
+        currentWeatherVm.currentTemperature.setValue(String.valueOf(weather.main.temp));
+        currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
+        currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
+        currentWeatherVm.humidity.setValue(String.valueOf(weather.main.humidity));
+        currentWeatherVm.windSpeed.setValue(String.valueOf(weather.wind.speed));
+    }
 
     private HBox leftBox() {
         var leftBox = new HBox(tempsBox(), iconBox());
@@ -95,20 +110,5 @@ public class CurrentWeatherPanel {
                 );
         additionalDataBox.setAlignment(Pos.CENTER_LEFT);
         return additionalDataBox;
-    }
-    
-    public void updateCurrentWeather(){
-        var lat = globalVm.currentLocationItem.getValue().lat;
-        var lon = globalVm.currentLocationItem.getValue().lon;
-        var result = apiService.getCurrentWeather(lat, lon);
-        if (result.isSuccess() == false) {
-            return;
-        }
-        var weather = result.getValue();
-        currentWeatherVm.currentTemperature.setValue(String.valueOf(weather.main.temp));
-        currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
-        currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
-        currentWeatherVm.humidity.setValue(String.valueOf(weather.main.humidity));
-        currentWeatherVm.windSpeed.setValue(String.valueOf(weather.wind.speed));
     }
 }
