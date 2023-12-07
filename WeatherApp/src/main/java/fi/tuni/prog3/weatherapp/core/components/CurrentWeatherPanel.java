@@ -52,11 +52,11 @@ public class CurrentWeatherPanel {
             return;
         }
         var weather = result.getValue();
-        currentWeatherVm.currentTemperature.setValue(String.valueOf(weather.main.temp));
+        currentWeatherVm.currentTemperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
         currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
-        currentWeatherVm.humidity.setValue(String.valueOf(weather.main.humidity));
-        currentWeatherVm.windSpeed.setValue(String.valueOf(weather.wind.speed));
+        currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(weather.main.humidity) + "%");
+        currentWeatherVm.windSpeed.setValue("Wind speed: " + String.valueOf(weather.wind.speed) + " m/s");
     }
 
     private HBox leftBox() {
@@ -66,7 +66,8 @@ public class CurrentWeatherPanel {
     }
 
     private VBox tempsBox() {
-        var temperature = new Label("0 °C");
+        var temperature = new Label();
+        temperature.textProperty().bind(currentWeatherVm.currentTemperature);
         temperature.setFont(new Font(48));
         var temperatureAligner = new HBox(temperature);
         temperatureAligner.setAlignment(Pos.CENTER);
@@ -93,9 +94,11 @@ public class CurrentWeatherPanel {
     }
 
     private VBox additionalDataBox() {
-        var humidity = new Label("Humidity: 95%");
+        var humidity = new Label();
+        humidity.textProperty().bind(currentWeatherVm.humidity);
         humidity.setFont(new Font(smallFontSize));
-        var windSpeed = new Label("Wind speed: 4.02 m/s");
+        var windSpeed = new Label();
+        windSpeed.textProperty().bind(currentWeatherVm.windSpeed);
         windSpeed.setFont(new Font(smallFontSize));
         var sunrise = new Label("Sunrise: 9:06");
         sunrise.setFont(new Font(smallFontSize));
