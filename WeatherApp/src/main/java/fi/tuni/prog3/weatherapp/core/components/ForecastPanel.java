@@ -53,7 +53,7 @@ public class ForecastPanel {
 
         var mainVBox = new VBox();
         mainVBox.setAlignment(Pos.CENTER);
-        mainVBox.setPadding(new Insets(0, 18, 0, 18));
+        mainVBox.setPadding(new Insets(0, 10, 0, 10));
 
         var dayLabel = new Label();
         dayLabel.textProperty().bind(forecastDayVm.dayName);
