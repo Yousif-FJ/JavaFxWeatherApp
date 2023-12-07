@@ -7,6 +7,6 @@ import javafx.scene.image.Image;
 
 public class ForecastDayVm {
     public final SimpleStringProperty dayName = new SimpleStringProperty("");
-    public final SimpleStringProperty minMaxTempString = new SimpleStringProperty("↑-  ↓-");
+    public final SimpleStringProperty minMaxTempString = new SimpleStringProperty("");
     public final ObjectProperty<Image> iconImage = new SimpleObjectProperty<>();
 }

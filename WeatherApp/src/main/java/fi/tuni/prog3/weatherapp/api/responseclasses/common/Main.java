@@ -1,4 +1,4 @@
-package fi.tuni.prog3.weatherapp.api.responseclasses.currentweather;
+package fi.tuni.prog3.weatherapp.api.responseclasses.common;
 
 public class Main {
     public final float temp;
