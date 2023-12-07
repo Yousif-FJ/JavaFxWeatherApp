@@ -54,9 +54,9 @@ public class CurrentWeatherPanel {
             return;
         }
         var weather = result.getValue();
-        currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
+        currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + "°C");
         currentWeatherVm.feelsLike
-                .setValue("Feels like " + String.valueOf(Math.round(weather.main.feels_like)) + " °C");
+                .setValue("Feels like " + String.valueOf(Math.round(weather.main.feels_like)) + "°");
         currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
