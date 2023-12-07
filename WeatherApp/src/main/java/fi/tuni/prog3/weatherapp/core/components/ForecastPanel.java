@@ -1,8 +1,8 @@
 package fi.tuni.prog3.weatherapp.core.components;
 
-import java.time.LocalDate;
-
+import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.viewmodels.ForecastVm;
+import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -14,6 +14,13 @@ import javafx.scene.text.Font;
 
 public class ForecastPanel {
     private final ForecastVm forecastVm = new ForecastVm();
+    private final iAPI apiService;
+    private final GlobalVm globalVm;
+
+    public ForecastPanel(iAPI api, GlobalVm globalVm) {
+        apiService = api;
+        this.globalVm = globalVm;
+    }
 
 
     public HBox create() {
@@ -39,7 +46,7 @@ public class ForecastPanel {
     private VBox createForecastElement(){
         var mainVBox = new VBox();
         mainVBox.setAlignment(Pos.CENTER);
-        mainVBox.setPadding(new Insets(0, 20, 0, 20));
+        mainVBox.setPadding(new Insets(0, 18, 0, 18));
 
         var dayLabel = new Label("Today");
 
@@ -52,5 +59,11 @@ public class ForecastPanel {
 
         mainVBox.getChildren().addAll(dayLabel, iconImageView, maxMinTempLabel);
         return mainVBox;
+    }
+
+    private void updateForecast(){
+        var lat = globalVm.currentLocationItem.getValue().lat;
+        var lon = globalVm.currentLocationItem.getValue().lon;
+        var result = apiService.getForecast(lat, lon);
     }
 }

@@ -25,7 +25,7 @@ public class WeatherApp extends Application {
     private final iAPI apiService = new WeatherApi(UnitType.Metric);
     private final LocationPanel sidePanel = new LocationPanel(searchViewModel, globalVm, apiService);
     private final CurrentWeatherPanel currentWeatherPanel = new CurrentWeatherPanel(currentWeatherVm, globalVm, apiService);
-    private final ForecastPanel forecastPanel = new ForecastPanel();
+    private final ForecastPanel forecastPanel = new ForecastPanel(apiService, globalVm);
 
     @Override
     public void start(Stage stage) {
