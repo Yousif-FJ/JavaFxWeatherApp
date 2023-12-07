@@ -9,4 +9,6 @@ public class CurrentWeatherVm {
     public final SimpleStringProperty windSpeed = new SimpleStringProperty("");
     public final SimpleStringProperty maxTemperature = new SimpleStringProperty("");
     public final SimpleStringProperty minTemperature = new SimpleStringProperty("");
+    public final SimpleStringProperty sunrise = new SimpleStringProperty("");
+    public final SimpleStringProperty sunset = new SimpleStringProperty("");
 }

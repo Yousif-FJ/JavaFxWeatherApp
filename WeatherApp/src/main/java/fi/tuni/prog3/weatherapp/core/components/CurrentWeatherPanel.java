@@ -1,5 +1,9 @@
 package fi.tuni.prog3.weatherapp.core.components;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.viewmodels.CurrentWeatherVm;
 import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
@@ -58,6 +62,8 @@ public class CurrentWeatherPanel {
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
         currentWeatherVm.windSpeed.setValue("Wind speed: " + String.valueOf(weather.wind.speed) + " m/s");
+        currentWeatherVm.sunrise.setValue("Sunrise: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunrise, weather.timezone)));
+        currentWeatherVm.sunset.setValue("Sunset: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunset, weather.timezone)));
     }
 
     private HBox leftBox() {
@@ -102,9 +108,11 @@ public class CurrentWeatherPanel {
         var windSpeed = new Label();
         windSpeed.textProperty().bind(currentWeatherVm.windSpeed);
         windSpeed.setFont(new Font(smallFontSize));
-        var sunrise = new Label("Sunrise: 9:06");
+        var sunrise = new Label();
+        sunrise.textProperty().bind(currentWeatherVm.sunrise);
         sunrise.setFont(new Font(smallFontSize));
-        var sunset = new Label("Sunset: 15:03");
+        var sunset = new Label();
+        sunset.textProperty().bind(currentWeatherVm.sunset);
         sunset.setFont(new Font(smallFontSize));
 
         var additionalDataBox = new VBox(
@@ -115,5 +123,12 @@ public class CurrentWeatherPanel {
                 );
         additionalDataBox.setAlignment(Pos.CENTER_LEFT);
         return additionalDataBox;
+    }
+
+    public static String convertUnixTimestampToTime(long unixTimestamp, long timezoneOffset) {
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp), ZoneOffset.ofTotalSeconds((int) timezoneOffset));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+        String formattedTime = dateTime.format(formatter);
+        return formattedTime;
     }
 }
