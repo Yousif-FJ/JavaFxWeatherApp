@@ -29,12 +29,10 @@ public class CurrentWeatherPanel {
         this.globalVm = globalVm;
     }
 
-
     public HBox create() {
         var currentWeatherBox = new HBox(
                 leftBox(),
-                additionalDataBox()
-                );
+                additionalDataBox());
         currentWeatherBox.setPrefHeight(168);
         currentWeatherBox.setStyle("-fx-background-color: #ffffff;");
         currentWeatherBox.setPadding(new Insets(10));
@@ -47,8 +45,8 @@ public class CurrentWeatherPanel {
 
         return currentWeatherBox;
     }
-    
-    public void updateCurrentWeather(){
+
+    public void updateCurrentWeather() {
         var lat = globalVm.currentLocationItem.getValue().lat;
         var lon = globalVm.currentLocationItem.getValue().lon;
         var result = apiService.getCurrentWeather(lat, lon);
@@ -57,13 +55,16 @@ public class CurrentWeatherPanel {
         }
         var weather = result.getValue();
         currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
-        currentWeatherVm.feelsLike.setValue("Feels like " + String.valueOf(Math.round(weather.main.feels_like)) + " °C");
+        currentWeatherVm.feelsLike
+                .setValue("Feels like " + String.valueOf(Math.round(weather.main.feels_like)) + " °C");
         currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
         currentWeatherVm.windSpeed.setValue("Wind speed: " + String.valueOf(weather.wind.speed) + " m/s");
-        currentWeatherVm.sunrise.setValue("Sunrise: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunrise, weather.timezone)));
-        currentWeatherVm.sunset.setValue("Sunset: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunset, weather.timezone)));
+        currentWeatherVm.sunrise.setValue(
+                "Sunrise: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunrise, weather.timezone)));
+        currentWeatherVm.sunset.setValue(
+                "Sunset: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunset, weather.timezone)));
     }
 
     private HBox leftBox() {
@@ -84,8 +85,7 @@ public class CurrentWeatherPanel {
 
         var tempsBox = new VBox(
                 temperatureAligner,
-                feelsLike
-                );
+                feelsLike);
         tempsBox.setAlignment(Pos.CENTER);
         return tempsBox;
     }
@@ -119,14 +119,14 @@ public class CurrentWeatherPanel {
                 humidity,
                 windSpeed,
                 sunrise,
-                sunset
-                );
+                sunset);
         additionalDataBox.setAlignment(Pos.CENTER_LEFT);
         return additionalDataBox;
     }
 
     public static String convertUnixTimestampToTime(long unixTimestamp, long timezoneOffset) {
-        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp), ZoneOffset.ofTotalSeconds((int) timezoneOffset));
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp),
+                ZoneOffset.ofTotalSeconds((int) timezoneOffset));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
         String formattedTime = dateTime.format(formatter);
         return formattedTime;
