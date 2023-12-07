@@ -55,7 +55,7 @@ public class CurrentWeatherPanel {
         currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
         currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
-        currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(weather.main.humidity) + "%");
+        currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
         currentWeatherVm.windSpeed.setValue("Wind speed: " + String.valueOf(weather.wind.speed) + " m/s");
     }
 
