@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import fi.tuni.prog3.weatherapp.api.iAPI;
+import fi.tuni.prog3.weatherapp.core.utils.ImageUtil;
 import fi.tuni.prog3.weatherapp.core.viewmodels.CurrentWeatherVm;
 import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
 import javafx.geometry.Insets;
@@ -65,6 +66,9 @@ public class CurrentWeatherPanel {
                 "Sunrise: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunrise, weather.timezone)));
         currentWeatherVm.sunset.setValue(
                 "Sunset: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunset, weather.timezone)));
+        
+        var icon = ImageUtil.createImage(this, weather.weather.get(0).icon);
+        currentWeatherVm.iconImage.setValue(icon);
     }
 
     private HBox leftBox() {
@@ -91,9 +95,8 @@ public class CurrentWeatherPanel {
     }
 
     private VBox iconBox() {
-        String iconPath = "/weathericons/03d@2x.png";
-        var iconImage = new Image(getClass().getResource(iconPath).toExternalForm());
-        var iconImageView = new ImageView(iconImage);
+        var iconImageView = new ImageView();
+        iconImageView.imageProperty().bind(currentWeatherVm.iconImage);
         iconImageView.setFitWidth(150);
         iconImageView.setFitHeight(150);
         var iconAligner = new VBox(iconImageView);
