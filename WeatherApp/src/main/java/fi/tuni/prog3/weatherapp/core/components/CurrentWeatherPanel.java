@@ -57,8 +57,9 @@ public class CurrentWeatherPanel {
         currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + "°C");
         currentWeatherVm.feelsLike
                 .setValue("Feels like " + String.valueOf(Math.round(weather.main.feels_like)) + "°");
-        currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
-        currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
+        currentWeatherVm.minMaxTemperature.setValue(
+                "↑" + String.valueOf(Math.round(weather.main.temp_max)) + "°  ↓"
+                        + String.valueOf(Math.round(weather.main.temp_min)) + "°");
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
         currentWeatherVm.windSpeed.setValue("Wind speed: " + String.valueOf(weather.wind.speed) + " m/s");
         currentWeatherVm.sunrise.setValue(
@@ -82,10 +83,14 @@ public class CurrentWeatherPanel {
         var feelsLike = new Label();
         feelsLike.textProperty().bind(currentWeatherVm.feelsLike);
         feelsLike.setFont(new Font(smallFontSize));
+        var minMaxTemperature = new Label();
+        minMaxTemperature.textProperty().bind(currentWeatherVm.minMaxTemperature);
+        minMaxTemperature.setFont(new Font(smallFontSize));
 
         var tempsBox = new VBox(
                 temperatureAligner,
-                feelsLike);
+                feelsLike,
+                minMaxTemperature);
         tempsBox.setAlignment(Pos.CENTER);
         return tempsBox;
     }
