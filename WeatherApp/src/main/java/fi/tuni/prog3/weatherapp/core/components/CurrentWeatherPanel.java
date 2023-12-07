@@ -52,7 +52,7 @@ public class CurrentWeatherPanel {
             return;
         }
         var weather = result.getValue();
-        currentWeatherVm.currentTemperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
+        currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
         currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(weather.main.humidity) + "%");
@@ -67,7 +67,7 @@ public class CurrentWeatherPanel {
 
     private VBox tempsBox() {
         var temperature = new Label();
-        temperature.textProperty().bind(currentWeatherVm.currentTemperature);
+        temperature.textProperty().bind(currentWeatherVm.temperature);
         temperature.setFont(new Font(48));
         var temperatureAligner = new HBox(temperature);
         temperatureAligner.setAlignment(Pos.CENTER);
