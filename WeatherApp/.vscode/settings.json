@@ -8,7 +8,8 @@
         "progthree",
         "responseclasses",
         "viewmodels",
-        "weatherapp"
+        "weatherapp",
+        "weathericons"
     ],
     "java.debug.settings.onBuildFailureProceed": true
 }
