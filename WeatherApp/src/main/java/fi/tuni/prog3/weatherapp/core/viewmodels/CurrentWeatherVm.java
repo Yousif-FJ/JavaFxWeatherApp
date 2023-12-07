@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class CurrentWeatherVm {
     public final SimpleStringProperty temperature = new SimpleStringProperty("");
+    public final SimpleStringProperty feelsLike = new SimpleStringProperty("");
     public final SimpleStringProperty humidity =  new SimpleStringProperty("");
     public final SimpleStringProperty windSpeed = new SimpleStringProperty("");
     public final SimpleStringProperty maxTemperature = new SimpleStringProperty("");

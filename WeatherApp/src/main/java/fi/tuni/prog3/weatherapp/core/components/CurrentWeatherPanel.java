@@ -53,6 +53,7 @@ public class CurrentWeatherPanel {
         }
         var weather = result.getValue();
         currentWeatherVm.temperature.setValue(String.valueOf(Math.round(weather.main.temp)) + " °C");
+        currentWeatherVm.feelsLike.setValue("Feels like " + String.valueOf(Math.round(weather.main.feels_like)) + " °C");
         currentWeatherVm.maxTemperature.setValue(String.valueOf(weather.main.temp_max));
         currentWeatherVm.minTemperature.setValue(String.valueOf(weather.main.temp_min));
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
@@ -71,7 +72,8 @@ public class CurrentWeatherPanel {
         temperature.setFont(new Font(48));
         var temperatureAligner = new HBox(temperature);
         temperatureAligner.setAlignment(Pos.CENTER);
-        var feelsLike = new Label("Feels like -36 °C");
+        var feelsLike = new Label();
+        feelsLike.textProperty().bind(currentWeatherVm.feelsLike);
         feelsLike.setFont(new Font(smallFontSize));
 
         var tempsBox = new VBox(
