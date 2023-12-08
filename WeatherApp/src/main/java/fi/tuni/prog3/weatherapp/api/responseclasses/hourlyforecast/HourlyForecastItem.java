@@ -30,4 +30,11 @@ public class HourlyForecastItem {
         this.sys = sys;
         this.dt_txt = dt_txt;
     }
+
+    @Override
+    public String toString() {
+        return "HourlyForecastItem [dt=" + dt + ", main=" + main + ", weather=" + weather + ", cloud=" + cloud
+                + ", wind=" + wind + ", visibility=" + visibility + ", pop=" + pop + ", sys=" + sys + ", dt_txt="
+                + dt_txt + "]";
+    }
 }

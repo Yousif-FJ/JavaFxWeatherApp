@@ -5,4 +5,5 @@ import java.util.List;
 
 public class ForecastVm {
     public final List<ForecastDayVm> forecastDays = new ArrayList<ForecastDayVm>();
+    public final List<ForecastHourVm> forecastHours = new ArrayList<ForecastHourVm>();
 }

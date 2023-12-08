@@ -16,7 +16,7 @@ import fi.tuni.prog3.weatherapp.api.responseclasses.hourlyforecast.HourlyForecas
 import fi.tuni.prog3.weatherapp.api.responseclasses.lookuplocation.LocationItemResponse;
 
 public class WeatherApi implements iAPI {
-    private static final String API_KEY = "147205126d4ea8b447dc8126ac71ed5a";
+    private static final String API_KEY = "345cc47980a82a58a4e7d5459f2c37ca";
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final Gson gson = new GsonBuilder().create();
     private final UnitType unitType;
@@ -91,8 +91,8 @@ public class WeatherApi implements iAPI {
 
     @Override
     public Result<HourlyForecastResponse> getHourlyForecast(double lat, double lon) {
-        String url = "http://api.openweathermap.org/data/2.5/forecast/hourly?lat=" + lat + "&lon="
-                    + lon + "&appid=" + API_KEY + "&units=" + unitType.value + "&lang=en&cnt=5";
+        String url = "http://pro.openweathermap.org/data/2.5/forecast/hourly?lat=" + lat + "&lon="
+                    + lon + "&appid=" + API_KEY + "&units=" + unitType.value;
                     
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))

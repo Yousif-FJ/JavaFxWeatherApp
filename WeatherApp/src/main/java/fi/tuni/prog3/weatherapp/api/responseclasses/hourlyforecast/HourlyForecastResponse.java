@@ -5,15 +5,16 @@ import java.util.List;
 public class HourlyForecastResponse {
     public final int cnt;
     public final List<HourlyForecastItem> list;
-    public final long timezone;
-    public final long sunrise;
-    public final long sunset;
+    public final City city;
     
-    public HourlyForecastResponse(int cnt, List<HourlyForecastItem> list, long timezone, long sunrise, long sunset) {
+    public HourlyForecastResponse(int cnt, List<HourlyForecastItem> list, City city) {
         this.cnt = cnt;
         this.list = list;
-        this.timezone = timezone;
-        this.sunrise = sunrise;
-        this.sunset = sunset;
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "HourlyForecastResponse [cnt=" + cnt + ", list=" + list + ", city=" + city + "]";
     }
 }

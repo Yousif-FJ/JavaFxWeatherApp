@@ -5,6 +5,7 @@ import fi.tuni.prog3.weatherapp.api.WeatherApi;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.components.CurrentWeatherPanel;
 import fi.tuni.prog3.weatherapp.core.components.ForecastPanel;
+import fi.tuni.prog3.weatherapp.core.components.HourlyForecastPanel;
 import fi.tuni.prog3.weatherapp.core.components.LocationPanel;
 import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ public class WeatherApp extends Application {
     private final LocationPanel locationPanel = new LocationPanel(globalVm, apiService);
     private final CurrentWeatherPanel currentWeatherPanel = new CurrentWeatherPanel(globalVm, apiService);
     private final ForecastPanel forecastPanel = new ForecastPanel(apiService, globalVm);
+    private final HourlyForecastPanel hourlyForecastPanel = new HourlyForecastPanel(apiService, globalVm);
 
     @Override
     public void start(Stage stage) {
@@ -49,7 +51,10 @@ public class WeatherApp extends Application {
         VBox mainPanel = new VBox();
         mainPanel.setPrefWidth(700);
         mainPanel.setStyle("-fx-background-color: #b1c2d4;");
-        mainPanel.getChildren().addAll(currentWeatherPanel.create(), forecastPanel.create());
+        mainPanel.getChildren().addAll(
+                currentWeatherPanel.create(),
+                forecastPanel.create(),
+                hourlyForecastPanel.create());
         return mainPanel;
     }
 }
