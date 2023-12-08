@@ -83,7 +83,7 @@ public class HourlyForecastPanel {
         }
 
         var forecast = result.getValue();
-        long timezone = forecast.timezone;
+        long timezone = forecast.city.timezone;
         for (int i = 0; i < forecastLength; i++) {
             var hourForecast = forecast.list.get(i);
             var hourForecastVm = forecastVm.forecastHours.get(i);
