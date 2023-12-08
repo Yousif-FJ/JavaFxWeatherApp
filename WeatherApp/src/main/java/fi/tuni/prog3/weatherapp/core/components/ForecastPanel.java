@@ -30,16 +30,13 @@ public class ForecastPanel {
         forecastBox.setStyle("-fx-background-color: #7AEAF1;");
         forecastBox.setPrefHeight(168);
 
-        for (int i = 0; i < 5; i++) {
-
-            var forecastElement = createForecastElement();
-            
-            forecastBox.getChildren().add(forecastElement);
+        for (int i = 0; i < 5; i++) {            
+            forecastBox.getChildren().add(createForecastElement());
         }
 
         globalVm.currentLocationItem.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                updateForecast();
+                updateInformation();
             }
         });
 
@@ -73,7 +70,7 @@ public class ForecastPanel {
         return mainVBox;
     }
 
-    private void updateForecast(){
+    private void updateInformation(){
         var lat = globalVm.currentLocationItem.getValue().lat;
         var lon = globalVm.currentLocationItem.getValue().lon;
         var result = apiService.getForecast(lat, lon);

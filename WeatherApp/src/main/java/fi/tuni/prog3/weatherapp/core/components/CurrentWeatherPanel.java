@@ -11,21 +11,19 @@ import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class CurrentWeatherPanel {
-    private final CurrentWeatherVm currentWeatherVm;
+    private final CurrentWeatherVm currentWeatherVm = new CurrentWeatherVm();
     private final GlobalVm globalVm;
     private final iAPI apiService;
 
     private final double smallFontSize = 20;
 
-    public CurrentWeatherPanel(CurrentWeatherVm currentWeatherVm, GlobalVm globalVm, iAPI apiService) {
-        this.currentWeatherVm = currentWeatherVm;
+    public CurrentWeatherPanel(GlobalVm globalVm, iAPI apiService) {
         this.apiService = apiService;
         this.globalVm = globalVm;
     }
@@ -40,14 +38,14 @@ public class CurrentWeatherPanel {
 
         globalVm.currentLocationItem.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                updateCurrentWeather();
+                updateInformation();
             }
         });
 
         return currentWeatherBox;
     }
 
-    public void updateCurrentWeather() {
+    private void updateInformation() {
         var lat = globalVm.currentLocationItem.getValue().lat;
         var lon = globalVm.currentLocationItem.getValue().lon;
         var result = apiService.getCurrentWeather(lat, lon);

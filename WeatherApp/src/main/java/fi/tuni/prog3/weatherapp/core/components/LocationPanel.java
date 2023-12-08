@@ -13,12 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class LocationPanel {
-    private final SearchVm searchViewModel;
+    private final SearchVm searchViewModel = new SearchVm();
     private final GlobalVm globalVm;
     private final iAPI apiService;
 
-    public LocationPanel(SearchVm searchViewModel, GlobalVm globalVm, iAPI apiService) {
-        this.searchViewModel = searchViewModel;
+    public LocationPanel(GlobalVm globalVm, iAPI apiService) {
         this.globalVm = globalVm;
         this.apiService = apiService;
     }
@@ -30,6 +29,8 @@ public class LocationPanel {
     
         Button searchButton = new Button("Search");
         searchButton.setPrefWidth(100);
+        searchButton.setOnAction(event -> OnSearch());
+
         TextField searchField = new TextField();
         searchField.textProperty().bindBidirectional(searchViewModel.searchValue);
         searchField.setOnKeyPressed(event -> {
@@ -37,27 +38,15 @@ public class LocationPanel {
                 searchButton.fire();     
             }
         });
-        
+
         ListView<String> listView = new ListView<>();
         listView.itemsProperty().bind(searchViewModel.searchResultsDisplay);
         listView.setStyle("-fx-control-inner-background: #D9D9D9;");
-        //This happens when user selects an item
-        listView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                OnSelectedResult();
-            }
-        });
-        //This happens when the selected item has changed. 
-        //This event triggers with the previous one but additionally if the user changes the search 
         listView.getSelectionModel().selectedIndexProperty()
                                     .addListener((observable, oldValue, newValue) -> {
-            if (newValue.intValue() != -1) {
-                var selectedItem = searchViewModel.searchResultValue.get(newValue.intValue());
-                globalVm.currentLocationItem.setValue(selectedItem);
-            }
+            OnSelectedIndexChanged(newValue);
         });
 
-        searchButton.setOnAction(event -> OnSearch());
 
         HBox searchBox = new HBox(searchField, searchButton);
         leftHBox.getChildren().addAll(searchBox, listView);
@@ -65,9 +54,11 @@ public class LocationPanel {
         return leftHBox;
     }
 
-    private void OnSelectedResult() {
-        System.out.println(globalVm.currentLocationItem.getValue().lat);
-        System.out.println(globalVm.currentLocationItem.getValue().lon);
+    private void OnSelectedIndexChanged(Number newValue) {
+        if (newValue.intValue() != -1) {
+            var selectedItem = searchViewModel.searchResultValue.get(newValue.intValue());
+            globalVm.currentLocationItem.setValue(selectedItem);
+        }
     }
 
     private void OnSearch() {
