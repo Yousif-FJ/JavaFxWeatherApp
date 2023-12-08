@@ -18,6 +18,8 @@ public class HourlyForecastPanel {
     private final ForecastVm forecastVm = new ForecastVm();
     private final iAPI apiService;
     private final GlobalVm globalVm;
+
+    private final int forecastLength = 9;
     
     public HourlyForecastPanel(iAPI api, GlobalVm globalVm) {
         apiService = api;
@@ -29,7 +31,7 @@ public class HourlyForecastPanel {
         hourlyForecastBox.setStyle("-fx-background-color: #b1c2d4;");
         hourlyForecastBox.setPrefHeight(126);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < forecastLength; i++) {
             var forecastElement = createHourlyForecastElement();
             hourlyForecastBox.getChildren().add(forecastElement);
         }
@@ -59,13 +61,15 @@ public class HourlyForecastPanel {
 
         var iconImageView = new ImageView();
         iconImageView.imageProperty().bind(forecastHourVm.iconImage);
+        iconImageView.setFitWidth(50);
+        iconImageView.setFitHeight(50);
 
-        var maxMinTempLabel = new Label();
-        maxMinTempLabel.textProperty().bind(forecastHourVm.minMaxTempString);
-        maxMinTempLabel.setStyle("-fx-font-weight: bold");
-        maxMinTempLabel.setFont(new Font(20));
+        var temperatureLabel = new Label();
+        temperatureLabel.textProperty().bind(forecastHourVm.temperature);
+        temperatureLabel.setStyle("-fx-font-weight: bold");
+        temperatureLabel.setFont(new Font(16));
 
-        mainVBox.getChildren().addAll(hourLabel, iconImageView, maxMinTempLabel);
+        mainVBox.getChildren().addAll(hourLabel, iconImageView, temperatureLabel);
         return mainVBox;
     }
 
@@ -80,17 +84,15 @@ public class HourlyForecastPanel {
 
         var forecast = result.getValue();
         long timezone = forecast.timezone;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < forecastLength; i++) {
             var hourForecast = forecast.list.get(i);
             var hourForecastVm = forecastVm.forecastHours.get(i);
 
             var hour = TimeUtil.convertUnixTimestampToTime(hourForecast.dt, timezone);
             hourForecastVm.hour.setValue(hour);
 
-            var maxTemp = Math.round(hourForecast.main.temp_max);
-            var minTemp = Math.round(hourForecast.main.temp_min);
-            String minMaxString = "↑" + maxTemp +"°  ↓"+ minTemp + "°";
-            hourForecastVm.minMaxTempString.setValue(minMaxString);
+            var temperature = String.valueOf(Math.round(hourForecast.main.temp)) + "°";
+            hourForecastVm.temperature.setValue(temperature);
 
             var image = ImageUtil.createImage(this, hourForecast.weather.get(0).icon);
             hourForecastVm.iconImage.setValue(image);
