@@ -14,12 +14,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class ForecastPanel {
+public class DailyForecastPanel {
     private final ForecastVm forecastVm = new ForecastVm();
     private final iAPI apiService;
     private final GlobalVm globalVm;
 
-    public ForecastPanel(iAPI api, GlobalVm globalVm) {
+    public DailyForecastPanel(iAPI api, GlobalVm globalVm) {
         apiService = api;
         this.globalVm = globalVm;
     }

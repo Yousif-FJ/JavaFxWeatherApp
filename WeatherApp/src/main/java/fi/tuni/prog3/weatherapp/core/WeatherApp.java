@@ -4,7 +4,7 @@ import fi.tuni.prog3.weatherapp.api.UnitType;
 import fi.tuni.prog3.weatherapp.api.WeatherApi;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.components.CurrentWeatherPanel;
-import fi.tuni.prog3.weatherapp.core.components.ForecastPanel;
+import fi.tuni.prog3.weatherapp.core.components.DailyForecastPanel;
 import fi.tuni.prog3.weatherapp.core.components.HourlyForecastPanel;
 import fi.tuni.prog3.weatherapp.core.components.LocationPanel;
 import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
@@ -24,7 +24,7 @@ public class WeatherApp extends Application {
 
     private final LocationPanel locationPanel = new LocationPanel(globalVm, apiService);
     private final CurrentWeatherPanel currentWeatherPanel = new CurrentWeatherPanel(globalVm, apiService);
-    private final ForecastPanel forecastPanel = new ForecastPanel(apiService, globalVm);
+    private final DailyForecastPanel forecastPanel = new DailyForecastPanel(apiService, globalVm);
     private final HourlyForecastPanel hourlyForecastPanel = new HourlyForecastPanel(apiService, globalVm);
 
     @Override
