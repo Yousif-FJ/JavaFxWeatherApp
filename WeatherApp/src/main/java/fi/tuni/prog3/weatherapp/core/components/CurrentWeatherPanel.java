@@ -1,9 +1,5 @@
 package fi.tuni.prog3.weatherapp.core.components;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.utils.ImageUtil;
 import fi.tuni.prog3.weatherapp.core.utils.TimeUtil;
