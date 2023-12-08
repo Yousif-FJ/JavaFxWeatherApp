@@ -6,6 +6,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import fi.tuni.prog3.weatherapp.api.iAPI;
 import fi.tuni.prog3.weatherapp.core.utils.ImageUtil;
+import fi.tuni.prog3.weatherapp.core.utils.TimeUtil;
 import fi.tuni.prog3.weatherapp.core.viewmodels.CurrentWeatherVm;
 import fi.tuni.prog3.weatherapp.core.viewmodels.GlobalVm;
 import javafx.geometry.Insets;
@@ -64,9 +65,9 @@ public class CurrentWeatherPanel {
         currentWeatherVm.humidity.setValue("Humidity: " + String.valueOf(Math.round(weather.main.humidity)) + "%");
         currentWeatherVm.windSpeed.setValue("Wind speed: " + String.valueOf(weather.wind.speed) + " m/s");
         currentWeatherVm.sunrise.setValue(
-                "Sunrise: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunrise, weather.timezone)));
+                "Sunrise: " + String.valueOf(TimeUtil.convertUnixTimestampToTime(weather.sys.sunrise, weather.timezone)));
         currentWeatherVm.sunset.setValue(
-                "Sunset: " + String.valueOf(convertUnixTimestampToTime(weather.sys.sunset, weather.timezone)));
+                "Sunset: " + String.valueOf(TimeUtil.convertUnixTimestampToTime(weather.sys.sunset, weather.timezone)));
         
         var icon = ImageUtil.createImage(this, weather.weather.get(0).icon);
         currentWeatherVm.iconImage.setValue(icon);
@@ -132,13 +133,5 @@ public class CurrentWeatherPanel {
                 sunset);
         additionalDataBox.setAlignment(Pos.CENTER_LEFT);
         return additionalDataBox;
-    }
-
-    public static String convertUnixTimestampToTime(long unixTimestamp, long timezoneOffset) {
-        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimestamp),
-                ZoneOffset.ofTotalSeconds((int) timezoneOffset));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
-        String formattedTime = dateTime.format(formatter);
-        return formattedTime;
     }
 }
