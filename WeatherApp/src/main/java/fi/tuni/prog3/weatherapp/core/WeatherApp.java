@@ -64,6 +64,12 @@ public class WeatherApp extends Application {
             return;
         }
         System.out.println(resultForecastWeather.getValue());
+
+        var resultHourlyForecastWeather = apiService.getHourlyForecast(lat, lon);
+        if (resultHourlyForecastWeather.isSuccess() == false) {
+            return;
+        }
+        System.out.println(resultHourlyForecastWeather.getValue());
     }
 
     public static void main(String[] args) {
