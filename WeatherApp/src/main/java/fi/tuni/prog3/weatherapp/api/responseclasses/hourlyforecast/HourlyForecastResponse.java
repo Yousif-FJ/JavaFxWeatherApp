@@ -16,4 +16,10 @@ public class HourlyForecastResponse {
         this.sunrise = sunrise;
         this.sunset = sunset;
     }
+
+    @Override
+    public String toString() {
+        return "HourlyForecastResponse [cnt=" + cnt + ", list=" + list + ", timezone=" + timezone + ", sunrise="
+                + sunrise + ", sunset=" + sunset + "]";
+    }
 }
