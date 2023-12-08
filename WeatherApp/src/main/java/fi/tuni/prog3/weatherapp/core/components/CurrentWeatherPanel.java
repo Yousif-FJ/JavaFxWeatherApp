@@ -34,7 +34,7 @@ public class CurrentWeatherPanel {
         var currentWeatherBox = new HBox(
                 leftBox(),
                 additionalDataBox());
-        currentWeatherBox.setPrefHeight(168);
+        currentWeatherBox.setPrefHeight(189);
         currentWeatherBox.setStyle("-fx-background-color: #ffffff;");
         currentWeatherBox.setPadding(new Insets(10));
 

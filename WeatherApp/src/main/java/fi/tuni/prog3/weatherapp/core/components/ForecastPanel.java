@@ -28,7 +28,7 @@ public class ForecastPanel {
     public HBox create() {
         var forecastBox = new HBox();
         forecastBox.setStyle("-fx-background-color: #7AEAF1;");
-        forecastBox.setPrefHeight(168);
+        forecastBox.setPrefHeight(189);
 
         for (int i = 0; i < 5; i++) {
 
