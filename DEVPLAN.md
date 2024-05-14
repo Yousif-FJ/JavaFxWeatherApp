@@ -10,6 +10,3 @@ Code Style:
 - classes have PascalCase
 - local variable have camelCase
 - folders are lowercase
-
-
-Design?
